@@ -8,14 +8,35 @@
 
 import UIKit
 
-typealias ImageProperties = (url: URL, widthHeightratio: CGFloat)
+typealias ImageProperties = (url: URL, widthHeightRatio: CGFloat)
 
 class ImageGalleryViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, UICollectionViewDragDelegate, UICollectionViewDropDelegate
 {
     
-    // Model
-    var imageList: [ImageProperties] = []
+    // MARK: - Model
+    var imagesList: [ImageProperties] = [] {
+        didSet {
+            updateModel()
+        }
+    }
     
+    var selectedGalleryIndexPath: IndexPath? {
+        didSet {
+            updateModel()
+        }
+    }
+    
+    private var masterVC: ImageGalleryTableViewController? {
+        return (splitViewController?.viewControllers.first as? UINavigationController)?.viewControllers.first as? ImageGalleryTableViewController
+    }
+    
+    private func updateModel() {
+        
+        if let selectedIndexPath = selectedGalleryIndexPath {
+            masterVC?.galleryList[selectedIndexPath.section][selectedIndexPath.row].images = imagesList
+        }
+        
+    }
     
     
     // MARK: - Outlets
@@ -27,27 +48,40 @@ class ImageGalleryViewController: UIViewController, UICollectionViewDataSource, 
             imageGalleryCollectionView.delegate = self
             imageGalleryCollectionView.dragDelegate = self
             imageGalleryCollectionView.dropDelegate = self
+            
+            imageGalleryCollectionView.addGestureRecognizer(UIPinchGestureRecognizer(target: self, action: #selector(self.scaleCellSize(by:))))
         }
     }
     
+    @objc private func scaleCellSize(by regconizer: UIPinchGestureRecognizer) {
+        switch regconizer.state {
+        case .changed, .ended:
+            imageGalleryCollectionCellWidth *= regconizer.scale
+            regconizer.scale = 1.0
+            flowLayout?.invalidateLayout()
+        default:
+            break
+        }
+        
+    }
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
+    private var imageGalleryCollectionCellWidth: CGFloat = 100 // Default cell width is 100.0
+    
+    private var flowLayout: UICollectionViewFlowLayout? {
+        return imageGalleryCollectionView.collectionViewLayout as? UICollectionViewFlowLayout
     }
     
     
     // MARK: - Collection View Datasource Delegate
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return imageList.count
+        return imagesList.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = imageGalleryCollectionView.dequeueReusableCell(withReuseIdentifier: "ImageGalleryCollectionViewCell", for: indexPath)
         if let imageCell = cell as? ImageGalleryCollectionViewCell {
-            let url = imageList[indexPath.item].url
+            let url = imagesList[indexPath.item].url
             imageCell.url = url
         }
         return cell
@@ -56,9 +90,9 @@ class ImageGalleryViewController: UIViewController, UICollectionViewDataSource, 
     // MARK: - Collection View Flowlayout Delegate
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        let ratio = imageList[indexPath.item].widthHeightratio
+        let ratio = imagesList[indexPath.item].widthHeightRatio
         
-        return CGSize(width: 100.0, height: 100.0 / ratio) // Default cell width is 80.0
+        return CGSize(width: imageGalleryCollectionCellWidth, height: imageGalleryCollectionCellWidth / ratio)
     }
     
     // MARK: - Collection View Drag Delegate
@@ -104,8 +138,8 @@ class ImageGalleryViewController: UIViewController, UICollectionViewDataSource, 
             if let sourceIndexPath = item.sourceIndexPath { // Local drop an item
                 
                 imageGalleryCollectionView.performBatchUpdates({
-                    let removedItem = imageList.remove(at: sourceIndexPath.item)
-                    imageList.insert(removedItem, at: destinationIndexPath.item)
+                    let removedItem = imagesList.remove(at: sourceIndexPath.item)
+                    imagesList.insert(removedItem, at: destinationIndexPath.item)
                     imageGalleryCollectionView.deleteItems(at: [sourceIndexPath])
                     imageGalleryCollectionView.insertItems(at: [destinationIndexPath])
                 })
@@ -128,7 +162,7 @@ class ImageGalleryViewController: UIViewController, UICollectionViewDataSource, 
                                         let ratio = image.size.width / image.size.height
                                         DispatchQueue.main.async {
                                             placeHolderContext.commitInsertion(dataSourceUpdates: { insertIndexPath in
-                                                self.imageList.insert((imageURL, ratio), at: insertIndexPath.item)
+                                                self.imagesList.insert((imageURL, ratio), at: insertIndexPath.item)
                                             })
                                         }
                                     }
@@ -146,14 +180,22 @@ class ImageGalleryViewController: UIViewController, UICollectionViewDataSource, 
     }
     
 
-    /*
-    // MARK: - Navigation
+    
+    // MARK: - Navigation Segue
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         // Get the new view controller using segue.destination.
         // Pass the selected object to the new view controller.
+        
+        if let idVC = segue.destination as? ImageDetailViewController {
+            if let imageCell = sender as? ImageGalleryCollectionViewCell {
+                idVC.navigationItem.title = "Image Detail"
+                idVC.image = imageCell.image
+            }
+        }
+        
     }
-    */
+    
 
 }

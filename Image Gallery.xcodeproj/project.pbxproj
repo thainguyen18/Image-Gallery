@@ -14,6 +14,9 @@
 		4B7EA6042187A29D0011C72A /* ImageGalleryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B7EA6032187A29D0011C72A /* ImageGalleryViewController.swift */; };
 		4B7EA6062187A7E10011C72A /* ImageGalleryCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B7EA6052187A7E10011C72A /* ImageGalleryCollectionViewCell.swift */; };
 		4B7EA6082187ADC10011C72A /* Utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B7EA6072187ADC10011C72A /* Utilities.swift */; };
+		4B7EA60D21880EAB0011C72A /* ImageGalleryTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B7EA60C21880EAB0011C72A /* ImageGalleryTableViewController.swift */; };
+		4B7EA60F218817A60011C72A /* ImageGalleryTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B7EA60E218817A60011C72A /* ImageGalleryTableViewCell.swift */; };
+		4B7EA611218A5AA70011C72A /* ImageDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B7EA610218A5AA70011C72A /* ImageDetailViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -26,6 +29,9 @@
 		4B7EA6032187A29D0011C72A /* ImageGalleryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageGalleryViewController.swift; sourceTree = "<group>"; };
 		4B7EA6052187A7E10011C72A /* ImageGalleryCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageGalleryCollectionViewCell.swift; sourceTree = "<group>"; };
 		4B7EA6072187ADC10011C72A /* Utilities.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Utilities.swift; sourceTree = "<group>"; };
+		4B7EA60C21880EAB0011C72A /* ImageGalleryTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageGalleryTableViewController.swift; sourceTree = "<group>"; };
+		4B7EA60E218817A60011C72A /* ImageGalleryTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageGalleryTableViewCell.swift; sourceTree = "<group>"; };
+		4B7EA610218A5AA70011C72A /* ImageDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageDetailViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -61,6 +67,9 @@
 				4B7EA5F42187A1820011C72A /* Main.storyboard */,
 				4B7EA6032187A29D0011C72A /* ImageGalleryViewController.swift */,
 				4B7EA6052187A7E10011C72A /* ImageGalleryCollectionViewCell.swift */,
+				4B7EA60C21880EAB0011C72A /* ImageGalleryTableViewController.swift */,
+				4B7EA60E218817A60011C72A /* ImageGalleryTableViewCell.swift */,
+				4B7EA610218A5AA70011C72A /* ImageDetailViewController.swift */,
 				4B7EA6022187A26F0011C72A /* Supporting Files */,
 			);
 			path = "Image Gallery";
@@ -149,7 +158,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4B7EA60D21880EAB0011C72A /* ImageGalleryTableViewController.swift in Sources */,
 				4B7EA6042187A29D0011C72A /* ImageGalleryViewController.swift in Sources */,
+				4B7EA611218A5AA70011C72A /* ImageDetailViewController.swift in Sources */,
+				4B7EA60F218817A60011C72A /* ImageGalleryTableViewCell.swift in Sources */,
 				4B7EA5F12187A1820011C72A /* AppDelegate.swift in Sources */,
 				4B7EA6082187ADC10011C72A /* Utilities.swift in Sources */,
 				4B7EA6062187A7E10011C72A /* ImageGalleryCollectionViewCell.swift in Sources */,
