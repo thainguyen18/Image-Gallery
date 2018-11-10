@@ -17,6 +17,8 @@
 		4B7EA60D21880EAB0011C72A /* ImageGalleryTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B7EA60C21880EAB0011C72A /* ImageGalleryTableViewController.swift */; };
 		4B7EA60F218817A60011C72A /* ImageGalleryTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B7EA60E218817A60011C72A /* ImageGalleryTableViewCell.swift */; };
 		4B7EA611218A5AA70011C72A /* ImageDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B7EA610218A5AA70011C72A /* ImageDetailViewController.swift */; };
+		4BC5C683219555B200F3E683 /* ImageGallery.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BC5C682219555B200F3E683 /* ImageGallery.swift */; };
+		4BC5C6852195597700F3E683 /* ImageGalleryDocument.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4BC5C6842195597700F3E683 /* ImageGalleryDocument.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -32,6 +34,8 @@
 		4B7EA60C21880EAB0011C72A /* ImageGalleryTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageGalleryTableViewController.swift; sourceTree = "<group>"; };
 		4B7EA60E218817A60011C72A /* ImageGalleryTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageGalleryTableViewCell.swift; sourceTree = "<group>"; };
 		4B7EA610218A5AA70011C72A /* ImageDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageDetailViewController.swift; sourceTree = "<group>"; };
+		4BC5C682219555B200F3E683 /* ImageGallery.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageGallery.swift; sourceTree = "<group>"; };
+		4BC5C6842195597700F3E683 /* ImageGalleryDocument.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageGalleryDocument.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -68,6 +72,8 @@
 				4B7EA6032187A29D0011C72A /* ImageGalleryViewController.swift */,
 				4B7EA6052187A7E10011C72A /* ImageGalleryCollectionViewCell.swift */,
 				4B7EA60C21880EAB0011C72A /* ImageGalleryTableViewController.swift */,
+				4BC5C682219555B200F3E683 /* ImageGallery.swift */,
+				4BC5C6842195597700F3E683 /* ImageGalleryDocument.swift */,
 				4B7EA60E218817A60011C72A /* ImageGalleryTableViewCell.swift */,
 				4B7EA610218A5AA70011C72A /* ImageDetailViewController.swift */,
 				4B7EA6022187A26F0011C72A /* Supporting Files */,
@@ -161,6 +167,8 @@
 				4B7EA60D21880EAB0011C72A /* ImageGalleryTableViewController.swift in Sources */,
 				4B7EA6042187A29D0011C72A /* ImageGalleryViewController.swift in Sources */,
 				4B7EA611218A5AA70011C72A /* ImageDetailViewController.swift in Sources */,
+				4BC5C683219555B200F3E683 /* ImageGallery.swift in Sources */,
+				4BC5C6852195597700F3E683 /* ImageGalleryDocument.swift in Sources */,
 				4B7EA60F218817A60011C72A /* ImageGalleryTableViewCell.swift in Sources */,
 				4B7EA5F12187A1820011C72A /* AppDelegate.swift in Sources */,
 				4B7EA6082187ADC10011C72A /* Utilities.swift in Sources */,

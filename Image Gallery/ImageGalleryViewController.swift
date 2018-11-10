@@ -12,9 +12,76 @@ typealias ImageProperties = (url: URL, widthHeightRatio: CGFloat)
 
 class ImageGalleryViewController: UIViewController, UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout, UICollectionViewDragDelegate, UICollectionViewDropDelegate
 {
+    // Computed Model
+    // If someone asks for it, return current state
+    // If someone sets it, update UI
+    var imageGallery: ImageGallery? {
+        get {
+            return ImageGallery(name: document?.imageGallery?.name ?? "Untitled", images: imagesList)
+        }
+        
+        set {
+            if let name = newValue?.name, let images = newValue?.images {
+                navigationItem.title = name
+                imagesList = images
+                imageGalleryCollectionView?.reloadData()
+            }
+        }
+    }
+    
+    var documentPath: URL {
+        get {
+            let path = try? FileManager.default.url(for: .documentDirectory, in: .userDomainMask, appropriateFor: nil, create: false).appendingPathComponent("Untitled.json")
+            
+            if path != nil {
+                return path!
+            } else {
+                return try! FileManager.default.url(for: .documentDirectory, in: .userDomainMask, appropriateFor: nil, create: true).appendingPathComponent("Untitled.json")
+            }
+        }
+    }
+    
+    var document: ImageGalleryDocument?
+    
+    private func saveChanges() {
+        if document == nil {
+            document = ImageGalleryDocument(fileURL: documentPath)
+        }
+        
+        document?.imageGallery = imageGallery
+        document?.updateChangeCount(.done)
+        
+        print("Saved!")
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        if document == nil {
+            document = ImageGalleryDocument(fileURL: documentPath)
+        }
+        
+        document?.open { success in
+            if success {
+                self.navigationItem.title = self.document?.localizedName ?? "Untitled"
+                
+                self.imageGallery = self.document?.imageGallery
+            }
+        }
+    }
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        
+        saveChanges()
+        
+        document?.close()
+        print("Closed document")
+    }
+    
     
     // MARK: - Model
-    var imagesList: [ImageProperties] = [] {
+    var imagesList: [ImageGallery.ImageProperties] = [] {
         didSet {
             updateModel()
         }
@@ -32,9 +99,9 @@ class ImageGalleryViewController: UIViewController, UICollectionViewDataSource, 
     
     private func updateModel() {
         
-        if let selectedIndexPath = selectedGalleryIndexPath {
-            masterVC?.galleryList[selectedIndexPath.section][selectedIndexPath.row].images = imagesList
-        }
+//        if let selectedIndexPath = selectedGalleryIndexPath {
+//            masterVC?.galleryList[selectedIndexPath.section][selectedIndexPath.row].images = imagesList
+//        }
         
     }
     
@@ -142,6 +209,9 @@ class ImageGalleryViewController: UIViewController, UICollectionViewDataSource, 
                     imagesList.insert(removedItem, at: destinationIndexPath.item)
                     imageGalleryCollectionView.deleteItems(at: [sourceIndexPath])
                     imageGalleryCollectionView.insertItems(at: [destinationIndexPath])
+                    
+                    // Update document model
+                    saveChanges()
                 })
                 coordinator.drop(item.dragItem, toItemAt: destinationIndexPath)
                 
@@ -162,7 +232,10 @@ class ImageGalleryViewController: UIViewController, UICollectionViewDataSource, 
                                         let ratio = image.size.width / image.size.height
                                         DispatchQueue.main.async {
                                             placeHolderContext.commitInsertion(dataSourceUpdates: { insertIndexPath in
-                                                self.imagesList.insert((imageURL, ratio), at: insertIndexPath.item)
+                                                self.imagesList.insert(ImageGallery.ImageProperties(url: imageURL, widthHeightRatio: ratio), at: insertIndexPath.item)
+                                                
+                                                // Update document model
+                                                self.saveChanges()
                                             })
                                         }
                                     }

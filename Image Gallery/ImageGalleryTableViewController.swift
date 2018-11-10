@@ -96,7 +96,7 @@ class ImageGalleryTableViewController: UITableViewController, UITextFieldDelegat
         if startUpIndex == nil {
             detailVC?.selectedGalleryIndexPath = indexPath
             detailVC?.navigationItem.title = galleryList[indexPath.section][indexPath.row].name
-            galleryList[indexPath.section][indexPath.row].images = detailVC?.imagesList ?? []
+            //galleryList[indexPath.section][indexPath.row].images = detailVC?.imagesList ?? []
             startUpIndex = indexPath
             return
         }
@@ -164,7 +164,7 @@ class ImageGalleryTableViewController: UITableViewController, UITextFieldDelegat
                     // Pass the images to collection view, only with selected gallery from section 0
                     
                         igvc.selectedGalleryIndexPath = indexPath
-                        igvc.imagesList = galleryList[indexPath.section][indexPath.row].images
+                        //igvc.imagesList = galleryList[indexPath.section][indexPath.row].images
                     
                     
                     igvc.navigationItem.title = galleryList[indexPath.section][indexPath.row].name
